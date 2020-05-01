@@ -110,7 +110,7 @@ Configration of showing animation in events on a map is saved in its map file na
 After we place genuine Animations.json (and reload RPGMV), it is immediately restored.
 
 
-
+<br><br><br>
 
 ### 3.2. Refrain to play songs in RPGMV 
 
@@ -121,7 +121,7 @@ But, working for RPG making with playing songs in RPGMV leads to risk of force t
 
 **If you just want to songs as BGM, it is better to play not by RPGMV but other tools**. 
 
-
+<br><br><br>
 
 ### 3.3. Have a copy of created events for backup before saving project
 
