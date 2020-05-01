@@ -8,36 +8,42 @@ by @soryu_rpmakermv
 
 ## 1. Introduction
 
-RPGツクールMVは、2015年の発売当時からエディタの挙動に不安を覚える部分がある。  
-マルチプラットフォーム化によるユーザーの裾野の広がりは歓迎されるべき点ではあるが、   
-その代償として過去のツクールでは殆ど気にすることが無かった不具合も生まれている。
+RPGMakerMV has potentially unstable behavior after it has been roled out in 2015.  
+The most significant feature of RPGMV is its portability for various platforms.   
+Instead, several faults in RPGMV editor are seen which were hardly in previos series of RPGMakers.   
 
-私が最も気にするものは、エディタの強制終了頻度の高さである。ツクールのエディタ上で扱える  
-アイテムやスキル、アニメーションといったデータ数の上限は過去のツクールよりも引き下げられているが、  
-実際にRPGツクールMVにおける上限いっぱいまでデータベースを作り込むと、頻繁に強制終了が起こる。   
-特にプロジェクト保存時に起こる強制終了が最も痛ましく、最悪データベース用のデータを全壊させることがある。
+What I worry the most is high frequency of crash and force termination of RPGMV.   
+Though number of items in database which can be handled in RPGMV editor got fewer compared to old series,   
+we often encounter force termination of RPGMV when we are using almost maximum items in the database.
+Especially, termination during the save of current working project is tragedy, which devastates the data file at worst.   
 
 ![json](https://user-images.githubusercontent.com/64351233/80788333-c5b3cd00-8bc3-11ea-9d11-bd549341cf43.png)   
 
-上図はプロジェクト保存時に強制終了が発生した上、アニメーションデータを保存するAnimations.jsonが     
-破壊されてしまった時にRPGツクールMV起動時に表示されるダイアログである。この時、    
-Animations.jsonは空ファイルになってしまっており、適当に修復しなければプロジェクトを再び開くことも不可能である。   
-もちろんプロジェクトを開くことに成功したとしても、Animations.jsonのバックアップを事前にとっていなければ  
-アニメーションデータの復活はまず不可能である。    
+Above figure shows a dialog which notifies that Animations.json has been destroyed    
+after force termination of RPGMV has occurred. In this time, Animations.json becomes empty.
+We never open RPGMV game project unless we fix Animations.json for designated format.   
+Even if we succeeded to open a project, we hardly can restore the animation data without its copy in advance.   
 
-RPGツクールMVでは、プロジェクトを開いてから終了するまでの間、データベースやマップなどの情報が書かれたファイルを   
-次々とメモリ上(ここで言うメモリは、RPGツクールMVが使うために割り当てられたメモリ領域)に展開していく。   
-データベースファイルは、作業中に変更していなくともプロジェクト保存時に書き込まれる。     
-もちろん、単に自分のパソコンのメモリを増やせば解決するなどということもない。恐らく何らかの不具合であると考えられる。
-こういった挙動はもちろん有志のプラグインで変更することは不可能であるため、ツクール本体のアップデートを座して待つしかない。
+When we launch RPGMV, RPGMV extract data (events, playing bgm, map data, database, and so on)     
+from every .json files into memory (Here, memory is a space allocated for RPGMV to save project data.)     
+until it is terminated. Note that, items in database are also written in corresponding files 
+as the project is saved **even if there are no changes in database**.     
 
-発売から５年と少し待っていたが、ツクール開発の奔流はラノゲツクール、アクションゲームツクールと他方面へ向いてしまい   
-自然とエディタの挙動周りにおける不具合が解決される望みは薄くなった。実際、本質的にほぼ同じなコンシューマ用移植作  
-「RPGツクールMVTrinity」が発売されたが、個人的な予想通り、エディタの挙動に関する評判は決して芳しくなかった。
+Installing additional physical memory into our PC absolutely does not help this behavior.    
+We never can fix the problem in RPGMV by using js plugins. Only we can do is just waiting.    
+However, it is not still fixed after more than 5 years passed when RPGMV is released.
+On the contrary, the developement has been directed another maker series such as Visual Novel Maker and   
+Pixel Game Maker. Actually, RPGmakerMV is poted to PlayStation 4 and Nintendo Switch as "RPGmakerMV Trinity"   
+in Japan, which has been condemned by purchasers due to serious bugs in a editor.
 
-私はこれまで本作での作業中に、何度も突然の強制終了やデータのクラッシュによる多大な時間的損失を受けて、  
-「RPGツクールMVでは本格的なRPGを作成してはならない」という啓示を受けたような気分で失意を感じたため   
-不意の強制終了によるプロジェクト破壊を防止するためにRPGツクールMVでの作業中にできる自衛手段を検討した。
+
+
+During my works with RPGMV, I have experienced many times of force termination and being destroyed data    
+and lost much time for the work. I was greatly disappointed as if I heard a revelation that   
+"RPGMaker MV is not a tool for making professional RPGs". To defy this damned situation,    
+I began to consider methods of self-protection for current working project data from frequently causing RPGMV crash.   
+
+
 
 
 <br>
@@ -56,7 +62,7 @@ RPGツクールMVでは、プロジェクトを開いてから終了するまで
 
 <br>
 
-## 3. Countermeasure
+## 3. Countermeasures
 
 ### 3.1. Migration of database files which have large number of items temporary 
 
