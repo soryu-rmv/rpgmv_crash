@@ -32,9 +32,9 @@ as the project is saved **even if there are no changes in database**.
 Installing additional physical memory into our PC absolutely does not help this behavior.    
 We never can fix the problem in RPGMV by using js plugins. Only we can do is just waiting.    
 However, it is not still fixed after more than 5 years passed when RPGMV is released.
-On the contrary, the developement has been directed another maker series such as Visual Novel Maker and   
-Pixel Game Maker. Actually, RPGmakerMV is poted to PlayStation 4 and Nintendo Switch as "RPGmakerMV Trinity"   
-in Japan, which has been condemned by purchasers due to serious bugs in a editor.
+On the contrary, the developement has been already directed to another maker series such as     
+Visual Novel Maker and Pixel Game Maker. Actually, RPGmakerMV is poted to PlayStation 4 and   
+Nintendo Switch as "RPGmakerMV Trinity" in Japan, which has been condemned by purchasers due to serious bugs in a editor.
 
 
 
@@ -49,16 +49,15 @@ I began to consider methods of self-protection for current working project data 
 <br>
 
 ## 2. Situation RPGMV crashes
-著者が遭遇した、RPGツクールMV強制終了が発生した主な瞬間を列挙する。
+First, I enumerate several situations which RPGMV was force terminated in my works.
 
-- 「プロジェクトの保存」を実行したとき
-- データベースやイベント編集画面でOKを押したとき
-- イベントの作成中 (イベントコマンド選択操作など)
-- bgmフォルダに入れた楽曲を、サウンドテストで再生している状況下での作業
+- When the current working project is saved
+- When I push **"OK"** in the window of making events and Database
+- During I make events (Operations for the choice of Event Commands)
+- Any constructions **with playing bgm by using SoundTest in RPGMV**
 
-プロジェクト保存によるデータ破壊は以ての外であるが、イベント作成中の強制終了は  
-作業データを退避させる暇もなく、作成したイベントが無に帰すため非常に厄介である。
-
+Of course, data destruction due to an error during project saving is out of the question.   
+It is also a matter that termination while making events gives no choices for us to save working data.   
 
 <br>
 
@@ -66,87 +65,104 @@ I began to consider methods of self-protection for current working project data 
 
 ### 3.1. Migration of database files which have large number of items temporary 
 
-Animations.jsonの破損によく遭遇するというのならば、戦闘テストを必要としない作業をしている間は
-RPGツクールMVに読み込ませるAnimations.jsonをわざと空にしてしまうという方法もある。    
-ただし、はじめに述べたように**「全くの白紙」ではプロジェクトを起動できない**ので最小限の準備が必要である。  
-以下は、空のAnimations.jsonを利用してエディタを開くまでの手順である。   
+If we encounter destruction of Animations.json frequentyly, it is a considerable choice that   
+we make Animations.json empty on purpose with the migration of original Animations.json file.     
+However, as I mentioned first, RPGmakerMV cannot open a project with completely empty Animations.json file.     
+We then have a preparation as follows.   
 
-- 1. 現在のプロジェクトの ./data/Animations.json を適当に名前を変更する、あるいはコピーで別の場所へ退避
-- 2. RPGツクールMVのデータベース上で、アニメーションを全て削除（空の状態にする）
-- 3. プロジェクトを保存する（ここでRPGツクールMVを1度終了させておくとよい）
-- 4. 実質的な空のAnimations.jsonを以後、バックアップとしておくために別の名前(Animations_.json等)へ変更する
-- 5. RPGツクールMVを開き直す（ほぼ空のAnimations.jsonが読み込まれる）
+- 1. Rename a file ./data/Animations.json in current project to appropriate name or copy to any other directories.
+- 2. Delete all animation data in Database in RPGMV（Let Animation lists be empty.）.
+- 3. Save a project（You may exit RPGMV here once.）.
+- 4. Have a copy of Animations.json (This is now almost empty.), rename it as Animations_.json for example.
+- 5. Open RPGMV （Animations.json which is an almost empty file is loaded.）
 
 <br>
 
 ![animations](https://user-images.githubusercontent.com/64351233/80791751-92763b80-8bcd-11ea-8d2e-072a3610efbc.png)
 
-上図は実際の運用例である。   
-Animations.jsonは、エディタ上で編集可能な1000データ全てを使い込むと、10MB近くになる。   
-ところが会話イベントを作成する作業が目的ならば、（アニメーションの表示をしない限り）この作業にAnimations.jsonは必要ない。   
-無駄に読み込ませてクラッシュされるぐらいなら、ほぼ空のデータを読み込ませておけば    
-保存時のクラッシュのリスクが減るどころか、プロジェクトの起動時間も短くなる。  
- 
-戦闘テストを含めた通しプレイをする時は、ダミーとして用意した（ほぼ）空のAnimations.jsonを  
-再度Animations_.json等にしておいて、**退避しておいた本物のAnimations.jsonを元に戻す（./data/に置く）**。　　　
+
+Above figure is an example to do that. When we make animation data to upper limit in RPGMV editor,    
+The size of Animations.json reaches to about 10MByte. However, your work is to design events     
+(for example) conversations among characters, Animations.json is no need unless showing animations.   
+In this case, the risk of force termination in RPGMV is decreased by loading almost empty Animations.json file.   
+Moreover, the loading time of projects can be shorten.    
 
 <br>
 
-バックアップを作成することを心掛けておくことはこういった制作作業においては当然気をつけるべきことだが、    
-RPGツクールMVに関してはいささか性質が悪いので、   
-（アニメーションデータが数個失われてしまっただけでも再現・復元、再作成は手間である）    
-エディタをアテにしない自衛手段としては有効である。
+When you need to test play including battles, **place genuine Animations.json (Have you migrated it before, right?)**   
+**file at ./data/ in your project again**.    
+Do not forget to escape dummy Animations.json, or you have to make it again in RPGMV.    
+
 
 
 <br>
 
-なお、ダミーのAnimations.jsonを読み込んでツクールを起動している間は、    
-既にプロジェクト内で作成していたイベント内の「アニメーションの表示」における表示アニメーションは　　  
-　　**？**　　となってしまっているが、表示させるアニメーションの情報は、各マップのデータを持つ   
-MapXXX.jsonファイルが記憶しているのでAnimations.jsonを元に戻せば直ちに復活する（ので、不安になって迂闊に触らないこと）。   
+Though we take it for granted that the copy for backup is taken in daily working,   
+there is no such thing as doing too much countermeasures for RPGMV because it is somehow wicked than we expect.    
+(Losing just a few animation data make us sad, and require additional working cost to restore them.)     
+
+<br>
+
+
+While we use RPGMaker with dummy Animations.json, the target of "Show Animation" commands in events is   
+displayed as  **？** .　You never mind this because it is not our fault.    
+Configration of showing animation in events on a map is saved in its map file named MapXXX.json.  
+After we place genuine Animations.json (and reload RPGMV), it is immediately restored.
 
 
 
-### 3.2. Refrain to play BGM files in RPGMV 
 
-ツクールのエディタ上（サウンドテスト）でBGMを再生すると、もちろん曲のデータもメモリに格納される。   
-曲データのファイルサイズ(ビットレートや長さ)にもよるが、**長く壮大な曲はそもそも再生できていないこともある**。   
-oggファイルのループ再生のチェックに有用ではあるが、再生しながらの作業継続は強制終了のリスクを高める。   
+### 3.2. Refrain to play songs in RPGMV 
 
-作業BGMとしての試聴など、再生だけが目的なら他のツールを使って再生させた方が安全である。
+Playing songs in RPGMV thourgh SoundTest, the data of sound file is exactly stored into memory.
+As it depends on file size (or bit rate and duration of songs), we sometimes fail to play magnificent songs   
+with long duration. It is so convenient for us to check song loop for ogg files by using RPGMV SoundTest.    
+But, working for RPG making with playing songs in RPGMV leads to risk of force termination of RPGMV.
+
+**If you just want to songs as BGM, it is better to play not by RPGMV but other tools**. 
+
 
 
 ### 3.3. Have a copy of created events for backup before saving project
 
-「保存したいが、保存するとクラッシュするかもしれない」となると、    
-割としっかりとしたストーリー部分のイベントを書き上げた直後のプロジェクト保存には勇気が必要である。    
-
-そこで、RPGツクールMVを**もう１つ起動する**という方法がある。    
-開かれた直後のRPGツクールMVでいきなり強制終了してしまうということはまず起こらない。    
-（もちろん、ツクール多重起動のためにPCそのもののメモリは必要なので、古いPC等の環境によっては厳しいかもしれないが…）   
+We feel fear when we think that "I wanna save but the save may crash!!".
+In particular, after finishing a grate scale of event scenes, the process of save is something like lottery.   
+(We need strong brave to start save.)   
 
 
-まず、作業中のプロジェクトを新たに起動したRPGツクールMVで開いた状態にしておく。
-下図では、もともと作業していたRPGMVを左側に、今新規に開いたRPGMVを右側に並べている。
+
+Then I suggest to **launch another RPGMV** before saving the project.    
+The execution of RPGMV as soon as it has just been launched almost never die. (Of course,    
+additional memory is required to run multiple RPGMakerMV. It may be hard for those who are using old PC.)    
+
+
+<br>
+
+Fisrt, just Launch **another RPGMV**.
+Below figure shows that two RPGMV are aligned. The left one is that I have been working (just finished an event),    
+and the right one is additional RPGMV.
 
 ![rpgmv](https://user-images.githubusercontent.com/64351233/80790807-be43f200-8bca-11ea-897c-4efac99e5442.png)
 
-作成されているイベントは、なんと**ツクールのウィンドウやプロジェクトをまたいでコピー・ペーストできる**。     
-しかも同じマップであってもなくてもよく、更には全く違うゲームに対してのペーストも可能である。
-
-これを利用して、作業していたRPGMV画面から今作ったばかりのイベントをコピーする。   
-ショートカットでCtrl+Cをしてもよいし、右クリック→コピーでもよい。   
-
-コピーができたら、新たに立ち上げた方のRPGMV画面（もちろん、同じマップを開いていた方が良い）にペーストする。   
-こちらもショートカットでCtrl+Vをしてもよいし、右クリック→ペーストでもよい。  
-
-この状態で、もともと作業していたRPGMV側に戻って改めてプロジェクト保存を試みる。  
-成功したなら、もうそれでもう一方は閉じてしまって構わないし、    
-万が一強制終了になってしまったとしても、新たに開いておいたツクールに作成したイベントは生きているので、
-精神的ダメージを受けずに保存の再チャレンジができる。   
-（たとえ成功した場合でも、その後に再び大きな作業を続けるならツクールMVを開き直す事も検討されたい。）
+It is important that **events and other items in RPGMV can be copied beyond its window**.
+Furthermore, they can be copied to different maps in another RPGMV window.   
+In addition to this, they can be copied to different RPGMV game projects beyond the window.   
 
 
-※ 間違っても、同じプロジェクトを開いた状態で異なる作業を同時に進めてはいけない     
-（それらを保存する行為はゲーム制作状態の整合性を失う）   
-※ あくまで、ツクールで同じデータを**読み込むだけ**は作業上問題ない、というだけである
+Based on this, we attempt to copy an event which is designed just now.
+We can copy any items in RPGMV by Ctrl+C shortcut or choicing Copy from right click.
+After the item is copied, **paste it into another RPGMV window**.   
+(In terms of efficincy of works, it is better to copy between the same maps.)
+We also can paste in RPGMV by Ctrl+V shortcut or choicing Paste from right click.
+
+After that, attempt to save in the original RPGMV window.   
+If the save is succeeded, it is no problem to close the another RPGMV.    
+If you failed, the another RPGMV helps you to restore the event immediately.   
+(Even if you succeeded, it may be better to restart RPGMV to continue additional events making.)
+
+<br><br>
+
+Note that
+- you never proceed the work with both RPGMV windows, or there is a risk to lose consistency of your project data,
+- and it is no problem to launch multiple RPGMVs as long as to only **load the data**.
+
