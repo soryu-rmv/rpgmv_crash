@@ -164,5 +164,5 @@ If you failed, the another RPGMV helps you to restore the event immediately.
 
 Note that
 - you never proceed the work with both RPGMV windows, or there is a risk to lose consistency of your project data,
-- and it is no problem to launch multiple RPGMVs as long as to only **load the data**.
+- and it is no problem to launch multiple RPGMVs as long as we only **load the data**.
 
