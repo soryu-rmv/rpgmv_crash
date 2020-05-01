@@ -107,19 +107,19 @@ there is no such thing as doing too much countermeasures for RPGMV because it is
 While we use RPGMaker with dummy Animations.json, the target of "Show Animation" commands in events is   
 displayed as  **？** .　You never mind this because it is not our fault.    
 Configration of showing animation in events on a map is saved in its map file named MapXXX.json.  
-After we place genuine Animations.json (and reload RPGMV), it is immediately restored.
+After we place genuine Animations.json (and reload RPGMV), it is immediately restored.  
 
 
 <br><br><br>
 
 ### 3.2. Refrain to play songs in RPGMV 
 
-Playing songs in RPGMV thourgh SoundTest, the data of sound file is exactly stored into memory.
+Playing songs in RPGMV thourgh SoundTest, the data of sound file is exactly stored into memory.  
 As it depends on file size (or bit rate and duration of songs), we sometimes fail to play magnificent songs   
 with long duration. It is so convenient for us to check song loop for ogg files by using RPGMV SoundTest.    
-But, working for RPG making with playing songs in RPGMV leads to risk of force termination of RPGMV.
+But, working for RPG making with playing songs in RPGMV leads to risk of force termination of RPGMV.  
 
-**If you just want to songs as BGM, it is better to play not by RPGMV but other tools**. 
+**If you just want to songs as BGM, it is better to play not by RPGMV but other tools**.   
 
 <br><br><br>
 
@@ -138,22 +138,22 @@ additional memory is required to run multiple RPGMakerMV. It may be hard for tho
 
 <br>
 
-Fisrt, just Launch **another RPGMV**.
+Fisrt, just Launch **another RPGMV**.  
 Below figure shows that two RPGMV are aligned. The left one is that I have been working (just finished an event),    
-and the right one is additional RPGMV.
+and the right one is additional RPGMV.  
 
-![rpgmv](https://user-images.githubusercontent.com/64351233/80790807-be43f200-8bca-11ea-897c-4efac99e5442.png)
+![rpgmv2](https://user-images.githubusercontent.com/64351233/80798983-9a8ba680-8be0-11ea-82f3-67c7820adac8.png)
 
-It is important that **events and other items in RPGMV can be copied beyond its window**.
+It is important that **events and other items in RPGMV can be copied beyond its window**.  
 Furthermore, they can be copied to different maps in another RPGMV window.   
 In addition to this, they can be copied to different RPGMV game projects beyond the window.   
 
 
-Based on this, we attempt to copy an event which is designed just now.
-We can copy any items in RPGMV by Ctrl+C shortcut or choicing Copy from right click.
+Based on this, we attempt to copy an event which is designed just now.  
+We can copy any items in RPGMV by Ctrl+C shortcut or choicing Copy from right click.  
 After the item is copied, **paste it into another RPGMV window**.   
-(In terms of efficincy of works, it is better to copy between the same maps.)
-We also can paste in RPGMV by Ctrl+V shortcut or choicing Paste from right click.
+(In terms of efficincy of works, it is better to copy between the same maps.)  
+We also can paste in RPGMV by Ctrl+V shortcut or choicing Paste from right click.  
 
 After that, attempt to save in the original RPGMV window.   
 If the save is succeeded, it is no problem to close the another RPGMV.    
